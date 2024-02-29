@@ -1,12 +1,34 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Mon flux vidéo en direct</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecteur IPTV</title>
+    <!-- Inclure la bibliothèque Video.js -->
+    <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
 </head>
 <body>
-  <h1>Mon flux vidéo en direct</h1>
-  <video id="video" controls autoplay>
-    <source src="tv_channels_fr.m3u" type="application/x-mpegURL">
-    Votre navigateur ne supporte pas la lecture de vidéos en direct.
-  </video>
+    <div id="myPlayer" class="video-js vjs-default-skin"></div>
+
+    <script>
+        // Récupérer l'URL et l'adresse MAC
+        var url = "http://foxx-tv.com:9600/c";
+        var adresseMAC = "00:1A:79:BA:93:6A";
+
+        // Configurer le lecteur vidéo
+        var player = videojs('myPlayer', {
+            controls: true,
+            autoplay: true,
+            preload: 'auto'
+        });
+
+        // Ajouter la source vidéo au lecteur
+        player.src({
+            src: url,
+            type: 'application/x-mpegURL', // Adapté au protocole HLS
+            'x-mac-addr': adresseMAC // Ajouter l'adresse MAC en tant que paramètre
+        });
+    </script>
 </body>
 </html>
